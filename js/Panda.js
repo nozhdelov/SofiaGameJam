@@ -15,9 +15,7 @@ function Panda(game){
     
 
     this.keys = this.game.input.keyboard.createCursorKeys();
- //   this.game.camera.follow(this);
-    
-    //this.animations.add('jump',[3]);
+
 }
 
 
@@ -50,7 +48,7 @@ Panda.prototype.walkRight = function(){
 Panda.prototype.jump = function(){
 
     if(!this.body.wasTouching.down){
-      //  return;
+        return;
     }
 
     this.animations.stop();
