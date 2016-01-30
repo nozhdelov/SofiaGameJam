@@ -3,7 +3,7 @@
 function Panda(game){
     this.game = game;
 
-    Phaser.Sprite.call(this, this.game, 100, 100, 'panda', 1);
+    Phaser.Sprite.call(this, this.game, 100, -800, 'panda', 1);
 
     this.anchor.set(0.5, 0.5);
 
@@ -12,17 +12,17 @@ function Panda(game){
 
     this.animations.add('walk', [6,7,8,9,10,11,12,13,14,15]);
     this.animations.add('jump',[3]);
-    this.game.world.add(this);
+    
 
     this.keys = this.game.input.keyboard.createCursorKeys();
-    this.game.camera.follow(this);
-
+ //   this.game.camera.follow(this);
+    
     //this.animations.add('jump',[3]);
 }
 
 
-Panda.prototype = Phaser.Sprite.prototype;
-Panda.constructur = Phaser.Sprite;
+Panda.prototype = Object.create(Phaser.Sprite.prototype);
+Panda.constructor = Phaser.Sprite;
 
 
 Panda.prototype.walkLeft = function(){
@@ -48,7 +48,7 @@ Panda.prototype.walkRight = function(){
 
 
 Panda.prototype.jump = function(){
- console.log(!this.body.wasTouching.down);
+
     if(!this.body.wasTouching.down){
       //  return;
     }
