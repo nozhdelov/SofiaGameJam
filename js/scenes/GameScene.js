@@ -16,7 +16,7 @@ GameScene.constructor = Phaser.State;
 
 GameScene.prototype.preload = function () {
    this.game.load.image('background', 'assets/background.png');
-   this.game.load.spritesheet('panda', 'assets/panda.png', 64, 88);
+   this.game.load.spritesheet('panda', 'assets/panda.png', 64, 59);
    this.game.load.image('train', 'assets/train.png');
 };
 

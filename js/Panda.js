@@ -10,7 +10,7 @@ function Panda(game){
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
     this.body.collideWorldBounds = true;
 
-    this.animations.add('walk', [6,7,8,9,10,11,12,13,14,15]);
+    this.animations.add('walk', [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]);
     this.animations.add('jump',[3]);
     
 
@@ -28,10 +28,10 @@ Panda.constructor = Phaser.Sprite;
 Panda.prototype.walkLeft = function(){
     this.scale.set(-1, 1);
     if(!this.animations.getAnimation('walk').isPlaying ){
-        this.animations.getAnimation('walk').play(1, true);
+        this.animations.getAnimation('walk').play(30, true);
     }
 
-    this.body.velocity.x = -120;
+    this.body.velocity.x = -200;
 };
 
 
@@ -40,10 +40,10 @@ Panda.prototype.walkRight = function(){
 
 
     if(!this.animations.getAnimation('walk').isPlaying){
-        this.animations.getAnimation('walk').play(12, true);
+        this.animations.getAnimation('walk').play(30, true);
     }
 
-    this.body.velocity.x = 120;
+    this.body.velocity.x = 200;
 };
 
 
