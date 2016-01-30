@@ -1,12 +1,12 @@
 function Background (game) {
   this.game = game || Phaser.game;
-  Phaser.TileSprite.call(this, this.game, 0, 0, 800, 600, 'background');
+  Phaser.TileSprite.call(this, this.game, 0, 0, 5000, 600, 'background');
   this.game.world.add(this);
 }
 
 Background.prototype = Object.create(Phaser.TileSprite.prototype);
 Background.prototype.constructor = Background;
 
-Background.prototype.preUpdate = function (){
-
+Background.prototype.update = function (){
+  this.tilePosition.x -=20;
 }
