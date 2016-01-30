@@ -15,7 +15,7 @@ GameScene.prototype.preload = function () {
 
 
 GameScene.prototype.create = function () {
-   
+    this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
 
 
 };
