@@ -8,27 +8,41 @@ function Train(game){
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
     this.enableBody = true;
 
+    var width = 0;
+    var train = new Phaser.Sprite(this.game, 1, 500, 'train_1');
 
-    var train = new Phaser.Sprite(this.game, 600, 400, 'train');
-
-    train.scale.set(-0.5,0.5);
+   
     train.anchor.set(0.5, 0.5);
 
     this.game.physics.enable(train, Phaser.Physics.ARCADE);
     train.body.allowGravity = false;
     train.body.immovable = true;
 
-    var train2 = new Phaser.Sprite(this.game, 200, 400, 'train');
+    
+    
+    var i , train3;
+    this.parts.push(train);
+    
+    
+  
 
-    train2.scale.set(-0.5, 0.5);
-    train2.anchor.set(0.5, 0.5);
+    
+    for(i = 1; i < 10; i++){
+        width = this.getWidth();
 
-    this.game.physics.enable(train2, Phaser.Physics.ARCADE);
-    train2.body.allowGravity = false;
-    train2.body.immovable = true;
+        train3 = new Phaser.Sprite(this.game, width, 500, 'train_6');// + Math.round(Math.random() * 6));
+
+       // train3.scale.set(-0.7,0.7);
+        train3.anchor.set(0.5, 0.5);
+        width += train3.width;
+        this.game.physics.enable(train3, Phaser.Physics.ARCADE);
+        train3.body.allowGravity = false;
+        train3.body.immovable = true;
+        this.parts.push(train3);
+    }
 
 
-    this.parts.push(train, train2);
+    this.scale.set(-1, 1);
 
 
    // this.game.camera.follow(train);
@@ -37,7 +51,7 @@ function Train(game){
         this.add(obj);
     }.bind(this));
 
-
+    this.position.x = width;
    this.game.world.add(this);
 
 }
@@ -45,3 +59,10 @@ function Train(game){
 
 Train.prototype = Object.create(Phaser.Group.prototype);
 Train.constructor = Phaser.Group;
+
+
+Train.prototype.getWidth = function(){
+    return this.parts.reduce(function(a,b){
+            return a + b.width;
+        }, 0);
+};

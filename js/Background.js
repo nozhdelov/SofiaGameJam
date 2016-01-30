@@ -1,6 +1,6 @@
 function Background (game) {
   this.game = game || Phaser.game;
-  Phaser.TileSprite.call(this, this.game, 0, 0, 5000, 600, 'background');
+  Phaser.TileSprite.call(this, this.game, 0, 0, 50000, 600, 'background');
   this.game.world.add(this);
 }
 

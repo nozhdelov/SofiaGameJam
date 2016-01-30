@@ -17,9 +17,18 @@ GameScene.constructor = Phaser.State;
 
 GameScene.prototype.preload = function () {
    this.game.load.image('background', 'assets/background.jpg');
-   this.game.load.spritesheet('panda', 'assets/panda.png', 64, 59);
+   this.game.load.spritesheet('panda', 'assets/panda.png', 80, 76);
    this.game.load.image('train', 'assets/train.png');
    this.game.load.spritesheet('ghost', 'assets/ghost.png', 63, 75);
+   
+   //train
+   this.game.load.image('train_1', 'assets/v1.png');
+   this.game.load.image('train_2', 'assets/v2.png');
+   this.game.load.image('train_3', 'assets/v3.png');
+   this.game.load.image('train_4', 'assets/v4.png');
+   this.game.load.image('train_5', 'assets/v5.png');
+   this.game.load.image('train_6', 'assets/v6.png');
+   this.game.load.image('train_7', 'assets/v7.png');
 };
 
 
@@ -42,6 +51,7 @@ GameScene.prototype.create = function () {
     var tween = this.game.add.tween(this.game.camera).to({x:this.panda.position.x}).delay(0);
     tween.onComplete.add(function(){
         this.game.world.add(this.panda);
+        this.panda.position.x = this.train.position.x - this.train.getWidth() + 400;
         this.game.world.add(this.ghost);
         this.game.camera.follow(this.panda);
     }.bind(this));
