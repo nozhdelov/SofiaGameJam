@@ -9,7 +9,7 @@ function Train(game){
     this.enableBody = true;
 
 
-    var train = new Phaser.Sprite(this.game, 600,300, 'train');
+    var train = new Phaser.Sprite(this.game, 600, 400, 'train');
 
     train.scale.set(-0.5,0.5);
     train.anchor.set(0.5, 0.5);
@@ -18,7 +18,7 @@ function Train(game){
     train.body.allowGravity = false;
     train.body.immovable = true;
 
-    var train2 = new Phaser.Sprite(this.game, 200,300, 'train');
+    var train2 = new Phaser.Sprite(this.game, 200, 400, 'train');
 
     train2.scale.set(-0.5, 0.5);
     train2.anchor.set(0.5, 0.5);
