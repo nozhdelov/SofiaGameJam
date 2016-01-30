@@ -10,12 +10,13 @@ function Panda(game){
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
     this.body.collideWorldBounds = true;
     
-    this.animations.add('walk');
+    this.animations.add('walk', [6,7,8,9,10,11,12,13,14,15]);
     this.animations.add('jump',[3]);
     this.game.world.add(this);
     
     this.keys = this.game.input.keyboard.createCursorKeys();
-   console.log(this);
+    this.game.camera.follow(this);
+  
     //this.animations.add('jump',[3]);
 }
 
@@ -47,9 +48,9 @@ Panda.prototype.walkRight = function(){
 
 
 Panda.prototype.jump = function(){
- 
+ console.log(!this.body.wasTouching.down);
     if(!this.body.wasTouching.down){
-        return;
+      //  return;
     }
     
     this.animations.stop();
@@ -65,6 +66,9 @@ Panda.prototype.stop = function(){
 
 
 Panda.prototype.update = function(){
+    
+ 
+    
     if(this.keys.left.isDown){
         this.walkLeft();
     }
