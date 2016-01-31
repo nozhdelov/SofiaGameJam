@@ -2,7 +2,7 @@
 
 function Panda(game){
     this.game = game;
-
+    this.sounds ={};
     Phaser.Sprite.call(this, this.game, 100, -800, 'panda', 1);
 
     this.anchor.set(0.5, 0.5);
@@ -21,14 +21,26 @@ function Panda(game){
 
 
     this.keys = this.game.input.keyboard.createCursorKeys();
-    // console.log(this.game.input.keyboard);
+
     this.keys['A'] = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
     this.keys['S'] = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
     this.keys['D'] = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
-   
 
+    this.sounds.bells = this.game.sound.add('bells');
+    this.game.sound.setDecodedCallback([this.sounds.bells], startSoundsListener.bind(this));
 }
 
+function startSoundsListener(){
+  this.keys['A'] = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+
+  this.keys['A'].onDown.add(function(){
+      this.sounds.bells.play();
+  }, this);
+
+  this.keys['A'].onUp.add(function(){
+    this.sounds.bells.stop();
+  }, this);
+}
 
 Panda.prototype = Object.create(Phaser.Sprite.prototype);
 Panda.constructor = Phaser.Sprite;
@@ -47,7 +59,7 @@ Panda.prototype.walkLeft = function(){
 Panda.prototype.walkRight = function(){
     this.scale.set(1, 1);
 
- 
+
     if(!this.animations.getAnimation('walk').isPlaying){
         this.animations.getAnimation('walk').play(30, true);
     }
@@ -58,7 +70,7 @@ Panda.prototype.walkRight = function(){
 
 Panda.prototype.die = function(){
 
- 
+
     if(!this.animations.getAnimation('die').isPlaying){
         this.animations.getAnimation('die').play(30, true);
     }
@@ -92,7 +104,7 @@ Panda.prototype.dance = function(){
         this.animations.getAnimation('dance').play(30, true);
     }
 
-  
+
 };
 
 
@@ -106,7 +118,7 @@ Panda.prototype.walkOnFire = function(){
         this.animations.getAnimation('fireWalk').play(30, true);
     }
 
-  
+
 };
 
 
@@ -122,7 +134,7 @@ Panda.prototype.stop = function () {
 
 
 Panda.prototype.update = function(){
-    
+
     if(this.keys.left.isDown){
         this.walkLeft();
     }
@@ -135,17 +147,16 @@ Panda.prototype.update = function(){
     if(this.keys.A.isDown){
         this.dance();
     }
-    
- 
+
+
     if(this.keys.S.isDown){
         this.walkOnFire();
     }
 
-    
     if(this.keys.D.isDown){
         this.die();
     }
-    
+
     var allKeysAreUp = Object.keys(this.keys).map(function(key){
         return this.keys[key].isUp;
     }.bind(this)).reduce(function(a,b){
@@ -153,6 +164,8 @@ Panda.prototype.update = function(){
     });
 
     if(allKeysAreUp ){
+        this.game.sound.stopAll();
         this.stop();
+
     }
 };

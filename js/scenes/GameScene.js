@@ -10,6 +10,7 @@ function GameScene() {
     this.ghost = null;
     this.bells = null;
     this.worldSize = {width: 80000, height: 600};
+    this.treeTicker = 300;
  }
 
 GameScene.prototype = Object.create(Phaser.State.prototype);
@@ -20,6 +21,9 @@ GameScene.prototype.preload = function () {
    this.game.load.spritesheet('panda', 'assets/panda.png', 80, 76);
    this.game.load.image('train', 'assets/train.png');
    this.game.load.spritesheet('ghost', 'assets/ghost.png', 63, 75);
+   this.game.load.image('tree1', 'assets/tree1.png');
+   this.game.load.image('tree2', 'assets/tree2.png');
+
 
    //train
    this.game.load.image('connector', 'assets/connector.png');
@@ -65,22 +69,14 @@ GameScene.prototype.create = function () {
     }.bind(this));
 
     tween0.chain(tween).start();
-
-    this.bells = this.game.sound.add('bells');
-    this.game.sound.setDecodedCallback([ this.bells ], start.bind(this), this);
 };
 
-function start(){
-    var keys = this.game.input.keyboard.addKeys({ bells: Phaser.Keyboard.S});
-    keys.bells.onDown.add(playFx, this);
-   // debugger;
-    //keys.bells.onUp.add(this.game.sound.StopAll);
-}
+
 
 GameScene.prototype.update = function () {
      this.game.physics.arcade.collide(this.panda, this.train);
      this.game.physics.arcade.collide(this.ghost, this.train);
-    //  this.game.physics.arcade.collide(this.panda, this.ghost);
+     
 };
 
 GameScene.prototype.render = function () {
