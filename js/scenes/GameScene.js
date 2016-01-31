@@ -6,11 +6,14 @@ function GameScene() {
 
     this.background = null;
     this.panda = null;
+    this.deadPanda = null;
     this.train = null;
     this.ghost = null;
     this.bells = null;
     this.worldSize = {width: 80000, height: 600};
     this.treeTicker = 300;
+    this.sounds = {};
+    this.goalReached = false;
  }
 
 GameScene.prototype = Object.create(Phaser.State.prototype);
@@ -19,6 +22,7 @@ GameScene.constructor = Phaser.State;
 GameScene.prototype.preload = function () {
    this.game.load.image('background', 'assets/background.jpg');
   // this.game.load.spritesheet('panda', 'assets/panda.png', 80, 76);
+   this.game.load.spritesheet('deadPanda', 'assets/swordDeath.png', 140, 150);
    this.game.load.spritesheet('panda', 'assets/animations6.png', 110, 100);
    this.game.load.image('train', 'assets/train.png');
    this.game.load.spritesheet('ghost', 'assets/ghost.png', 63, 75);
@@ -38,7 +42,9 @@ GameScene.prototype.preload = function () {
 
    //audio
    this.game.load.audio('bells', 'assets/audio/bells.mp3');
-   
+   this.game.load.audio('bg', 'assets/audio/bumper.mp3');
+   this.game.load.audio('train', 'assets/audio/train.mp3');
+
    //smoke
    this.game.load.image('smoke', 'assets/smoke1.png');
 
@@ -53,15 +59,16 @@ GameScene.prototype.create = function () {
 
     this.background = new Background(this.game);
     this.panda = new Panda(this.game);
+    this.deadPanda = new DeadPanda(this.game);
     this.train = new Train(this.game);
     this.ghost = new Ghost(this.game);
 
     this.game.camera.x = 700;
 
+    this.game.camera.x = this.train.position.x - 350;
+    var tween0 = this.game.add.tween(this.game.camera.scale).from({x : 2, y : 2});
 
-    var tween0 = this.game.add.tween(this.game.camera.scale).from({x : 3, y : 3});
-
-    var tween = this.game.add.tween(this.game.camera).to({x:this.panda.position.x}).delay(0);
+    var tween = this.game.add.tween(this.game.camera).to({x:this.panda.position.x}).delay(1000);
     tween.onComplete.add(function(){
         this.game.world.add(this.panda);
         this.panda.position.x = this.train.position.x - this.train.getWidth() + 400;
@@ -71,23 +78,33 @@ GameScene.prototype.create = function () {
     }.bind(this));
 
     tween0.chain(tween).start();
-};
-
+  };
 
 
 GameScene.prototype.update = function () {
      this.game.physics.arcade.collide(this.panda, this.train);
      this.game.physics.arcade.collide(this.ghost, this.train);
      this.game.physics.arcade.collide(this.ghost, this.panda, function(ghost, panda){
- 
+         if(this.goalReached){
+             return;
+         }
+         this.goalReached = true;
         panda.controllsActive = false;
         panda.dance(); 
         
         this.game.add.tween(this.ghost).to({y:-200}).delay(1000).start().onComplete.add(function(){
             this.panda.tea();
+            setTimeout(function(){
+                this.game.world.add(this.deadPanda);
+                this.deadPanda.position = this.panda.position;
+                this.panda.kill();
+                this.deadPanda.die();
+                
+            }.bind(this), 2500);
         }.bind(this));
+
      }.bind(this));
-     
+ 
 };
 
 GameScene.prototype.render = function () {

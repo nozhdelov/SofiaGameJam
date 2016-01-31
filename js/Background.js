@@ -1,5 +1,5 @@
 function Background (game) {
-  this.START_TREE_X = 4000;
+  this.START_TREE_X = 3000;
   this.game = game || Phaser.game;
   Phaser.TileSprite.call(this, this.game, 0, 0, 50000, 600, 'background');
   this.game.world.add(this);
@@ -28,10 +28,10 @@ Background.prototype.update = function (){
 }
 
 Background.prototype.updateTrees = function (){
-  if (this.tree1.position.x < 0 ){
+  if (this.tree1.position.x < -300 ){
     this.tree1.position.x = this.randomTreePosition();
   }
-  if (this.tree2.position.x < 0) {
+  if (this.tree2.position.x < -300) {
     this.tree2.position.x = this.randomTreePosition();
   }
   this.tree1.position.x -= 20;
