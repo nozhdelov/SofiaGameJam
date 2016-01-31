@@ -69,8 +69,8 @@ GameScene.prototype.create = function () {
 function start(){
     var keys = this.game.input.keyboard.addKeys({ bells: Phaser.Keyboard.S});
     keys.bells.onDown.add(playFx, this);
-    debugger;
-    keys.bells.onUp.add(this.game.sound.StopAll);
+   // debugger;
+    //keys.bells.onUp.add(this.game.sound.StopAll);
 }
 
 GameScene.prototype.update = function () {

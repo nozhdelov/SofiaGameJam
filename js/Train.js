@@ -30,7 +30,7 @@ function Train(game){
     for(i = 1; i < 10; i++){
         width = this.getWidth();
 
-        train3 = new Phaser.Sprite(this.game, width, 500, 'train_6');// + Math.round(Math.random() * 6));
+        train3 = new Phaser.Sprite(this.game, width, 500, 'train_7');// + Math.round(Math.random() * 6));
 
        // train3.scale.set(-0.7,0.7);
         train3.anchor.set(0.5, 0.5);
