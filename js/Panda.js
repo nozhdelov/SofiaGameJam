@@ -21,7 +21,7 @@ function Panda(game){
 
 
     this.keys = this.game.input.keyboard.createCursorKeys();
-    console.log(this.game.input.keyboard);
+    // console.log(this.game.input.keyboard);
     this.keys['A'] = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
     this.keys['S'] = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
     this.keys['D'] = this.game.input.keyboard.addKey(Phaser.Keyboard.D);

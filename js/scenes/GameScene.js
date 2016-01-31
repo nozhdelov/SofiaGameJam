@@ -8,8 +8,8 @@ function GameScene() {
     this.panda = null;
     this.train = null;
     this.ghost = null;
+    this.bells = null;
     this.worldSize = {width: 80000, height: 600};
-
  }
 
 GameScene.prototype = Object.create(Phaser.State.prototype);
@@ -20,7 +20,7 @@ GameScene.prototype.preload = function () {
    this.game.load.spritesheet('panda', 'assets/panda.png', 80, 76);
    this.game.load.image('train', 'assets/train.png');
    this.game.load.spritesheet('ghost', 'assets/ghost.png', 63, 75);
-   
+
    //train
    this.game.load.image('train_1', 'assets/v1.png');
    this.game.load.image('train_2', 'assets/v2.png');
@@ -29,6 +29,10 @@ GameScene.prototype.preload = function () {
    this.game.load.image('train_5', 'assets/v5.png');
    this.game.load.image('train_6', 'assets/v6.png');
    this.game.load.image('train_7', 'assets/v7.png');
+
+   //audio
+   this.game.load.audio('bells', 'assets/audio/bells.mp3');
+
 };
 
 
@@ -57,7 +61,17 @@ GameScene.prototype.create = function () {
     }.bind(this));
 
     tween0.chain(tween).start();
+
+    this.bells = this.game.sound.add('bells');
+    this.game.sound.setDecodedCallback([ this.bells ], start.bind(this), this);
 };
+
+function start(){
+    var keys = this.game.input.keyboard.addKeys({ bells: Phaser.Keyboard.S});
+    keys.bells.onDown.add(playFx, this);
+    debugger;
+    keys.bells.onUp.add(this.game.sound.StopAll);
+}
 
 GameScene.prototype.update = function () {
      this.game.physics.arcade.collide(this.panda, this.train);
@@ -68,3 +82,11 @@ GameScene.prototype.update = function () {
 GameScene.prototype.render = function () {
 
 };
+
+function playFx(key){
+    switch (key.keyCode) {
+        case Phaser.Keyboard.S:
+            this.bells.play();
+            break;
+    }
+}
