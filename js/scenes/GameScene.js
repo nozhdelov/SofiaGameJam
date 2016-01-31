@@ -22,6 +22,7 @@ GameScene.prototype.preload = function () {
    this.game.load.spritesheet('ghost', 'assets/ghost.png', 63, 75);
 
    //train
+   this.game.load.image('connector', 'assets/connector.png');
    this.game.load.image('train_1', 'assets/v1.png');
    this.game.load.image('train_2', 'assets/v2.png');
    this.game.load.image('train_3', 'assets/v3.png');
@@ -32,6 +33,9 @@ GameScene.prototype.preload = function () {
 
    //audio
    this.game.load.audio('bells', 'assets/audio/bells.mp3');
+   
+   //smoke
+   this.game.load.image('smoke', 'assets/smoke1.png');
 
 };
 
