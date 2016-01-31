@@ -66,6 +66,7 @@ GameScene.prototype.create = function () {
         this.panda.position.x = this.train.position.x - this.train.getWidth() + 400;
         this.game.world.add(this.ghost);
         this.game.camera.follow(this.panda);
+        this.ghost.position.x = this.train.position.x - 350;
     }.bind(this));
 
     tween0.chain(tween).start();
@@ -76,6 +77,13 @@ GameScene.prototype.create = function () {
 GameScene.prototype.update = function () {
      this.game.physics.arcade.collide(this.panda, this.train);
      this.game.physics.arcade.collide(this.ghost, this.train);
+     this.game.physics.arcade.collide(this.ghost, this.panda, function(ghost, panda){
+ 
+        panda.controllsActive = false;
+        panda.dance(); 
+        
+        this.game.add.tween(this.ghost).to({y:-200}).delay(1000).start();
+     }.bind(this));
      
 };
 

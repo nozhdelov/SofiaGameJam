@@ -2,14 +2,15 @@
 
 function Ghost(game){
     this.game = game;
-    Phaser.Sprite.call(this, this.game, 300, -800, 'ghost', 1);
+    Phaser.Sprite.call(this, this.game, 1200, 350, 'ghost', 1);
 
     this.anchor.set(0.5, 0.5);
 
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
-    this.body.collideWorldBounds = true;
+   // this.body.collideWorldBounds = true;
     this.counter = 150;
     this.direction = 1;
+    this.body.allowGravity = false;
 
     this.animations.add('moveAround', [0,1,2,3,4,5,6,7,9,10]);
 }
