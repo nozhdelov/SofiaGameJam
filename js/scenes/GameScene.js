@@ -11,6 +11,7 @@ function GameScene() {
     this.bells = null;
     this.worldSize = {width: 80000, height: 600};
     this.treeTicker = 300;
+    this.sounds = {};
  }
 
 GameScene.prototype = Object.create(Phaser.State.prototype);
@@ -37,7 +38,9 @@ GameScene.prototype.preload = function () {
 
    //audio
    this.game.load.audio('bells', 'assets/audio/bells.mp3');
-   
+   this.game.load.audio('bg', 'assets/audio/bumper.mp3');
+   this.game.load.audio('train', 'assets/audio/train.mp3');
+
    //smoke
    this.game.load.image('smoke', 'assets/smoke1.png');
 
@@ -70,21 +73,19 @@ GameScene.prototype.create = function () {
     }.bind(this));
 
     tween0.chain(tween).start();
-};
-
+  };
 
 
 GameScene.prototype.update = function () {
      this.game.physics.arcade.collide(this.panda, this.train);
      this.game.physics.arcade.collide(this.ghost, this.train);
      this.game.physics.arcade.collide(this.ghost, this.panda, function(ghost, panda){
- 
+
         panda.controllsActive = false;
-        panda.dance(); 
-        
+        panda.dance();
+
         this.game.add.tween(this.ghost).to({y:-200}).delay(1000).start();
      }.bind(this));
-     
 };
 
 GameScene.prototype.render = function () {
