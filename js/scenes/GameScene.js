@@ -18,7 +18,8 @@ GameScene.constructor = Phaser.State;
 
 GameScene.prototype.preload = function () {
    this.game.load.image('background', 'assets/background.jpg');
-   this.game.load.spritesheet('panda', 'assets/panda.png', 80, 76);
+  // this.game.load.spritesheet('panda', 'assets/panda.png', 80, 76);
+   this.game.load.spritesheet('panda', 'assets/animations6.png', 110, 100);
    this.game.load.image('train', 'assets/train.png');
    this.game.load.spritesheet('ghost', 'assets/ghost.png', 63, 75);
    this.game.load.image('tree1', 'assets/tree1.png');
@@ -82,7 +83,9 @@ GameScene.prototype.update = function () {
         panda.controllsActive = false;
         panda.dance(); 
         
-        this.game.add.tween(this.ghost).to({y:-200}).delay(1000).start();
+        this.game.add.tween(this.ghost).to({y:-200}).delay(1000).start().onComplete.add(function(){
+            this.panda.tea();
+        }.bind(this));
      }.bind(this));
      
 };
