@@ -101,12 +101,14 @@ Panda.prototype.dance = function(){
     if (  !this.text ){
       this.text = this.game.add.text(this.position.x, this.position.y - 100, "KUKER TIME", {font: "64px Arial", fontWeight: "bold", fill: "#E6151F", align: "center"});
       this.text.anchor.set(0.5);
+      this.text.stroke = '#000000';
+      this.text.strokeThickness = 10;  
       setTimeout(function (){
           this.text.destroy();
       }.bind(this), 2000);
     }
     this.sounds.bells.play();
-    console.log(!this.animations.getAnimation('dance').isPlaying);
+    
     if(!this.animations.getAnimation('dance').isPlaying){
         this.animations.getAnimation('dance').play(30, true);
     }

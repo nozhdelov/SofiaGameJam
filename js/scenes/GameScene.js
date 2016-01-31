@@ -100,7 +100,7 @@ GameScene.prototype.update = function () {
                 this.panda.kill();
                 this.deadPanda.die();
                 
-            }.bind(this), 2500);
+            }.bind(this), 3500);
         }.bind(this));
 
      }.bind(this));
